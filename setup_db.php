@@ -107,8 +107,10 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Initial default user: admin / admin123
 INSERT INTO users (username, password, full_name, role, status) 
-SELECT 'admin', '$2y$10$gfbYJ6zs8hrywM6y02TuMeC9haoX/xeYp40DW.lfOQTou8Qs33K3a', 'System Administrator', 'super_admin', 'active'
+SELECT 'admin', '$2y$10$ry1yyxsvV.Q/H2KgKRJPLesr3cKY/J.v4Plmbpj3UuYRxwg6nGCte', 'System Administrator', 'super_admin', 'active'
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin');
+
+UPDATE users SET password = '$2y$10$ry1yyxsvV.Q/H2KgKRJPLesr3cKY/J.v4Plmbpj3UuYRxwg6nGCte' WHERE username = 'admin';
 ";
 
 echo "<p>Executing SQL schema queries...</p>";
