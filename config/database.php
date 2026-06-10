@@ -8,7 +8,7 @@ require_once __DIR__ . '/environment.php';
 $db_host = getenv('DB_HOST') ?: 'localhost';
 $db_user = getenv('DB_USER') ?: 'root';
 $db_pass = getenv('DB_PASS') ?: '';
-$db_name = getenv('DB_NAME') ?: 'certgen';
+$db_name = getenv('DB_NAME') ?: getenv('DB_Name') ?: 'certgen';
 $db_port = getenv('DB_PORT') ?: '3306';
 
 $conn = mysqli_init();
