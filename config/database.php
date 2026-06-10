@@ -43,22 +43,7 @@ try {
     die("
     <div style='font-family: sans-serif; padding: 2rem; max-width: 600px; margin: 50px auto; background: #fff1f2; border: 1px solid #fda4af; border-radius: 1rem; color: #9f1239;'>
         <h3 style='margin-top: 0;'>Database Connection Error</h3>
-        <p>The system could not connect to the database. This usually happens if the database hasn't been created yet.</p>
-        <p><strong>Error Details:</strong> " . htmlspecialchars($e->getMessage()) . "</p>
-        <p style='font-size: 0.9rem; background: #ffe4e6; padding: 0.5rem; border-radius: 0.25rem;'>
-            <strong>Diagnostic Info:</strong><br>
-            Host: <code>" . htmlspecialchars($db_host) . "</code><br>
-            Port: <code>" . htmlspecialchars($db_port) . "</code><br>
-            User: <code>" . htmlspecialchars($db_user) . "</code>
-        </p>
-        <hr style='border: 0; border-top: 1px solid #fecdd3; margin: 1.5rem 0;'>
-        <p style='font-size: 0.9rem;'><strong>How to fix:</strong></p>
-        <ol style='font-size: 0.9rem; line-height: 1.6;'>
-            <li>Open <strong>phpMyAdmin</strong> in your browser.</li>
-            <li>Create a new database named <code>" . htmlspecialchars($db_name) . "</code>.</li>
-            <li>Import the file <code>setup_database.sql</code> located in your project folder.</li>
-            <li>Ensure your MySQL service is running in XAMPP.</li>
-        </ol>
+        <p>The system could not connect to the database. Please contact the system administrator.</p>
     </div>");
 }
 
