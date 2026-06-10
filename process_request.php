@@ -36,6 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         if (!in_array($ext, $allowed)) return '';
         
+        // Ensure upload directory exists
+        if (!file_exists($dir)) {
+            mkdir($dir, 0755, true);
+        }
+        
         $new_name = $type . "_" . $ref . "." . $ext;
         $target = $dir . $new_name;
         
