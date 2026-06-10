@@ -2,7 +2,9 @@
 /**
  * auth.php - Session management and authentication checks
  */
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 /**
  * Check if user is logged in
@@ -43,7 +45,7 @@ function is_super_admin() {
 function require_super_admin() {
     require_login();
     if (!is_super_admin()) {
-        header("Location: index.php?error=unauthorized");
+        header("Location: dashboard.php?error=unauthorized");
         exit();
     }
 }

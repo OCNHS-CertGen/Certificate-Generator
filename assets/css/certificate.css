@@ -247,16 +247,26 @@ body::after {
 
 .content {
     position: absolute;
-    top: 4.9in;
+    top: 4.7in;
     left: 0.9in;
     right: 0.9in;
     text-align: justify;
     font-size: 12pt;
-    line-height: 2.0;
-    /* Change to 2.0 for double spacing */
+    line-height: 2.5;
     font-family: "Bookman Old Style", "Bookman", serif;
-    max-height: 4.4in;
+    max-height: 5.8in;
     overflow: hidden;
+}
+
+.content.double-spaced p:first-child {
+    line-height: 2.5 !important;
+    text-indent: 50px;
+    margin-bottom: 20px;
+}
+
+.content.double-spaced p:not(:first-child) {
+    line-height: 2.0 !important;
+    margin-bottom: 5px;
 }
 
 .content.dense-text,

@@ -168,7 +168,7 @@ require_once 'includes/header.php';
 <div class="welcome-container fade-in">
     <div class="history-header">
         <div class="history-header-inner">
-            <a href="index.php" class="back-link" style="background: #e2e8f0; color: #475569; padding: 8px 20px; border-radius: 40px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; font-size: 0.95rem; margin-top: 20px; margin-left: 10px; margin-bottom: 20px; transition: all 0.3s; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" onmouseover="this.style.background='#cbd5e1'; this.style.transform='translateX(-3px)'; this.style.color='var(--primary-color)';" onmouseout="this.style.background='#e2e8f0'; this.style.transform='none'; this.style.color='#475569';">&larr; Back to Selection</a>
+            <a href="dashboard.php" class="back-link" style="background: #e2e8f0; color: #475569; padding: 8px 20px; border-radius: 40px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; font-size: 0.95rem; margin-top: 20px; margin-left: 10px; margin-bottom: 20px; transition: all 0.3s; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" onmouseover="this.style.background='#cbd5e1'; this.style.transform='translateX(-3px)'; this.style.color='var(--primary-color)';" onmouseout="this.style.background='#e2e8f0'; this.style.transform='none'; this.style.color='#475569';">&larr; Back to Selection</a>
             <h1 class="history-title" style="color: white;">Template Management</h1>
             <p class="history-subtitle" style="color: white;">Customize the content format for different certificate types.</p>
         </div>

@@ -12,6 +12,8 @@
     $path_prefix = file_exists('assets/css/style.css') ? '' : '../';
     ?>
     <link rel="stylesheet" href="<?php echo $path_prefix; ?>assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo $path_prefix; ?>assets/css/modals.css">
+    <script src="<?php echo $path_prefix; ?>assets/js/modals.js"></script>
 
 </head>
 <body>
@@ -21,7 +23,7 @@
     <nav class="top-nav">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="<?php echo $path_prefix; ?>index.php">📑 CertGen</a>
+                <a href="<?php echo $path_prefix; ?>dashboard.php">📑 CertGen</a>
             </div>
             <div class="nav-links">
                 <div class="user-greeting">

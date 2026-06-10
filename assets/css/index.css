@@ -1,0 +1,212 @@
+/* Index/Dashboard Styles - RESTORED ORIGINAL DESIGN */
+.welcome-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.top-nav-selection {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.registry-btn,
+.history-btn-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 25px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.registry-btn {
+    background: var(--primary-color);
+    color: white;
+}
+
+.history-btn-top {
+    background: white;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.registry-btn:hover,
+.history-btn-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.hero-selection {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.hero-logo-main {
+    width: 180px;
+    filter: drop-shadow(0 0 40px rgba(0, 45, 114, 0.3));
+    transition: transform 0.5s ease;
+}
+
+.hero-logo-main:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    color: #fff;
+    margin: 20px 0 10px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
+}
+
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+@media (max-width: 992px) {
+    .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .catalog-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.template-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.template-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.card-icon {
+    background: #f8f9fa;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.card-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-info h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    border: none !important;
+    padding: 0 !important;
+    background: none !important;
+    font-weight: 800;
+}
+
+.card-info p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #777;
+    line-height: 1.5;
+}
+
+/* Interactive Group Refinement */
+.interactive-group {
+    cursor: pointer;
+    position: relative;
+}
+
+.interactive-group::after {
+    content: '⌄';
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    opacity: 0.5;
+    transition: transform 0.3s;
+}
+
+.interactive-group.active::after {
+    transform: rotate(180deg);
+}
+
+.sub-options {
+    margin-top: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    animation: slideDown 0.3s ease-out;
+}
+
+.interactive-group.active .sub-options {
+    display: flex;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sub-options a {
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 700;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+}
+
+.sub-options a:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}

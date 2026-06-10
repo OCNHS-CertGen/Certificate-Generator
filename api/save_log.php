@@ -41,6 +41,13 @@ try {
     if (!$stmt->execute()) {
         throw new Exception("Execute failed: " . $stmt->error);
     }
+    
+    // Update request status if request_id is provided
+    if (!empty($data['request_id'])) {
+        $requestId = (int)$data['request_id'];
+        $processedBy = $_SESSION['user_id'];
+        $conn->query("UPDATE certificate_requests SET status = 'Approved', processed_by = $processedBy WHERE id = $requestId");
+    }
 
     $stmt->close();
     $conn->close();

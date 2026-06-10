@@ -145,6 +145,18 @@ function get_purpose_map()
             'Verification',
             'Recognition',
             'Legal Purposes'
+        ],
+        'FORM 137 / SF10' => [
+            'School Transfer',
+            'Employment',
+            'Scholarship Application',
+            'Personal Copy'
+        ],
+        'CERTIFICATION (ENGLISH AS MEDIUM OF INSTRUCTION)' => [
+            'Employment Abroad',
+            'Visa Requirement',
+            'International College Admission',
+            'Immigration'
         ]
     ];
 }
@@ -343,6 +355,20 @@ function get_certificate_content($type, $data)
                 <div class='diploma-label-reconstructed'>RECONSTRUCTED</div>
                 <div class='diploma-label-text'>DIPLOMA</div>
             </div>";
+            break;
+
+        case 'FORM 137 / SF10':
+            $content['title'] = "CERTIFICATION";
+            $content['body'] = "<p>This is to certify that $student_info was a bona fide student of this school under <strong>$curriculum</strong> during the school year <strong>$sy</strong>.</p>";
+            $content['body'] .= "<p>This further certifies that his/her <strong>Official Transcript of Records (Form 137 / SF10-ES)</strong> is available and remains in the custody of this institution.</p>";
+            $content['body'] .= "<p>This certification is issued upon the request of the above-named student for <strong>$purpose</strong> purposes.</p>";
+            break;
+
+        case 'CERTIFICATION (ENGLISH AS MEDIUM OF INSTRUCTION)':
+            $content['title'] = "CERTIFICATION";
+            $content['body'] = "<p>This is to certify that $sn graduated in this school during school year <strong>$sy</strong> under <strong>$curriculum</strong></p>";
+            $content['body'] .= "<p>This further certifies that the <strong>Medium of Instruction</strong> used for teaching in this school is in <strong>English</strong> language except for the subject <strong>Filipino</strong>.</p>";
+            $content['body'] .= "<p>This certification is being issued upon the request of the above-named person for <strong>$purpose</strong> purposes.</p>";
             break;
 
         default:

@@ -3,7 +3,7 @@ require_once 'includes/auth.php';
 require_login();
 
 if (!isset($_POST['generate'])) {
-    header("Location: index.php");
+    header("Location: dashboard.php");
     exit();
 }
 
@@ -34,6 +34,10 @@ $data = [
     'original_superintendent' => $_POST['original_superintendent'] ?? '',
     'superintendent_name' => $_POST['superintendent_name'] ?? '',
     'superintendent_title' => $_POST['superintendent_title'] ?? '',
+    'request_id' => $_POST['request_id'] ?? null,
+    'place_of_birth' => strtoupper($_POST['place_of_birth'] ?? ''),
+    'birth_date' => $_POST['birth_date'] ?? '',
+    'address' => strtoupper($_POST['address'] ?? ''),
 ];
 
 $is_diploma = ($data['certificate_type'] === 'RECONSTRUCTED DIPLOMA');
@@ -78,7 +82,7 @@ $body_content = $cert_content['body'];
     <div class="watermark-bg"></div>
 
     <div class="no-print actions-toolbar">
-        <a href="index.php" class="floating-home-btn" title="Go Home">
+        <a href="dashboard.php" class="floating-home-btn" title="Go Home">
             <svg viewBox="0 0 24 24">
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="white" />
             </svg>
@@ -144,7 +148,8 @@ $body_content = $cert_content['body'];
                 <!-- Row 2: Titles -->
                 <div class="sig-title left">Punong-guro<br>Principal</div>
                 <div class="sig-title center">Punong-guro<br>Principal</div>
-                <div class="sig-title right">Tagapamahala ng mga Paaralan<br><?php echo h($data['superintendent_title']); ?></div>
+                <div class="sig-title right">Tagapamahala ng mga Paaralan<br><?php echo h($data['superintendent_title']); ?>
+                </div>
             </div>
         <?php else: ?>
             <!-- Header -->
@@ -169,7 +174,7 @@ $body_content = $cert_content['body'];
             <div class="salutation">TO WHOM IT MAY CONCERN:</div>
 
             <!-- Body -->
-            <div class="content">
+            <div class="content <?php echo (strpos($data['certificate_type'], 'GOOD MORAL CHARACTER') !== false) ? 'double-spaced' : ''; ?>">
                 <?php echo $body_content; ?>
             </div>
 

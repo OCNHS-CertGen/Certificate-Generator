@@ -1,3 +1,5 @@
 .env
 .htaccess
 *.log
+vendor/
+assets/uploads/

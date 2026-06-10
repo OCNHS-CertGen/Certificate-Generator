@@ -1,6 +1,16 @@
 <?php
 require_once 'includes/auth.php';
+require_once 'config/database.php';
 require_login();
+
+$req_data = null;
+if (isset($_GET['request_id'])) {
+    $rid = (int)$_GET['request_id'];
+    $result = $conn->query("SELECT * FROM certificate_requests WHERE id = $rid");
+    if ($result && $result->num_rows > 0) {
+        $req_data = $result->fetch_assoc();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +33,7 @@ require_login();
 
     <div class="container">
         <div class="back-link-container">
-            <a href="index.php" class="back-link">&larr; Back to Selection</a>
+            <a href="dashboard.php" class="back-link">&larr; Back to Selection</a>
         </div>
         <h1 class="form-title">OCNHS Certificate Generator</h1>
 
@@ -32,6 +42,9 @@ require_login();
         </div>
 
         <form action="generate.php" method="POST">
+            <?php if ($req_data): ?>
+                <input type="hidden" name="request_id" value="<?= $req_data['id'] ?>">
+            <?php endif; ?>
 
             <!-- COLLAPSIBLE SCHOOL DETAILS -->
 
@@ -97,11 +110,16 @@ require_login();
                         'RECORD DAMAGE CERTIFICATION',
                         'RECONSTRUCTED DIPLOMA',
                         'SCHOLARSHIP RECOMMENDATION',
-                        'SCHOOL ACCREDITATION CERTIFICATE'
+                        'SCHOOL ACCREDITATION CERTIFICATE',
+                        'FORM 137 / SF10',
+                        'CERTIFICATION (ENGLISH AS MEDIUM OF INSTRUCTION)'
                     ];
                     foreach ($types as $type):
+                        $selected = false;
+                        if ($req_data && $req_data['certificate_type'] === $type) $selected = true;
+                        if ($selected_type === $type) $selected = true;
                         ?>
-                        <option value="<?= $type ?>" <?= $selected_type === $type ? 'selected' : '' ?>>
+                        <option value="<?= $type ?>" <?= $selected ? 'selected' : '' ?>>
                             <?= $type ?>
                         </option>
                     <?php endforeach; ?>
@@ -112,20 +130,38 @@ require_login();
             <h3>Student Details</h3>
 
             <div class="form-group floating">
-                <input type="text" name="student_name" placeholder=" " required>
+                <input type="text" name="student_name" placeholder=" " value="<?= htmlspecialchars($req_data['student_name'] ?? '') ?>" required>
                 <label>Student Full Name</label>
             </div>
 
+            <?php if ($req_data): ?>
+                <div class="grid-row">
+                    <div class="form-group floating">
+                        <input type="date" name="birth_date" placeholder=" " value="<?= htmlspecialchars($req_data['birth_date'] ?? '') ?>">
+                        <label>Birth Date</label>
+                    </div>
+                    <div class="form-group floating">
+                        <input type="text" name="place_of_birth" placeholder=" " value="<?= htmlspecialchars($req_data['place_of_birth'] ?? '') ?>">
+                        <label>Place of Birth</label>
+                    </div>
+                </div>
+
+                <div class="form-group floating">
+                    <input type="text" name="address" placeholder=" " value="<?= htmlspecialchars($req_data['address'] ?? '') ?>">
+                    <label>Address</label>
+                </div>
+            <?php endif; ?>
+
             <div class="form-group floating" id="lrn-group">
                 <input type="text" name="lrn" id="lrn_input" placeholder=" " pattern="\d{12}" minlength="12"
-                    maxlength="12" title="LRN must be exactly 12 digits" required>
+                    maxlength="12" title="LRN must be exactly 12 digits" value="<?= htmlspecialchars($req_data['lrn'] ?? '') ?>" required>
                 <label>LRN (if applicable)</label>
             </div>
 
 
 
             <div class="form-group floating" id="grade-group">
-                <input type="text" name="grade_level" id="grade_level" placeholder=" " required>
+                <input type="text" name="grade_level" id="grade_level" placeholder=" " value="<?= htmlspecialchars($req_data['grade_level'] ?? '') ?>" required>
                 <label>Grade / Year Level</label>
             </div>
 
@@ -147,7 +183,7 @@ require_login();
             </div>
 
             <div class="form-group floating" id="section-group">
-                <input type="text" name="section_track" id="section_track_input" placeholder=" ">
+                <input type="text" name="section_track" id="section_track_input" placeholder=" " value="<?= htmlspecialchars($req_data['section_track'] ?? '') ?>">
                 <label>Section / Strand / Track</label>
             </div>
 
@@ -367,17 +403,17 @@ require_login();
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="curriculum" id="curriculum_input_hidden" required>
+                <input type="hidden" name="curriculum" id="curriculum_input_hidden" value="<?= htmlspecialchars($req_data['curriculum'] ?? '') ?>" required>
             </div>
 
             <div class="form-group floating" id="sy-group">
-                <input type="text" name="school_year" placeholder=" " required>
+                <input type="text" name="school_year" placeholder=" " value="<?= htmlspecialchars($req_data['school_year'] ?? '') ?>" required>
                 <label>School Year</label>
             </div>
 
             <div class="form-group floating" id="purpose-group">
                 <input type="text" name="purpose" id="purpose_input" list="purpose-suggestions" placeholder=" "
-                    required>
+                    value="<?= htmlspecialchars($req_data['purpose'] ?? '') ?>" required>
                 <label>Purpose of Certification</label>
                 <datalist id="purpose-suggestions"></datalist>
             </div>
@@ -567,7 +603,8 @@ require_login();
                     // Curriculum visibility logic for Custom Dropdown
                     const historicalItems = document.querySelectorAll('.historical-curriculum');
                     const showHistorical = certSelect.value === 'CERTIFICATE OF GRADUATION' ||
-                        certSelect.value === 'GOOD MORAL CHARACTER (COLLEGE/SHS ADMISSION)';
+                        certSelect.value === 'GOOD MORAL CHARACTER (COLLEGE/SHS ADMISSION)' ||
+                        certSelect.value === 'CERTIFICATION (ENGLISH AS MEDIUM OF INSTRUCTION)';
 
                     historicalItems.forEach(item => {
                         item.style.display = showHistorical ? '' : 'none';
@@ -653,8 +690,8 @@ require_login();
                     }
 
                     // Specific Required/Optional logic
-                    if (certSelect.value === 'CERTIFICATE OF GRADUATION') {
-                        // Graduation: LRN and Grade are optional as they might not be in old records
+                    if (certSelect.value === 'CERTIFICATE OF GRADUATION' || certSelect.value === 'CERTIFICATION (ENGLISH AS MEDIUM OF INSTRUCTION)') {
+                        // Graduation & English Medium: LRN and Grade are optional as they might not be in old records
                         lrnInput.required = false;
                         gradeInput.required = false;
                         lrnGroup.querySelector('label').textContent = "LRN (Optional)";

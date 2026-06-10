@@ -1,0 +1,50 @@
+/* Real-time Notification Toast Styles */
+#newRequestToast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: #002D72;
+    color: white;
+    padding: 20px 35px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    display: none;
+    z-index: 10001;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-left: 6px solid #2ed573;
+    animation: slideInRight 0.5s ease-out;
+    font-family: 'Inter', sans-serif;
+}
+
+#newRequestToast .toast-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#newRequestToast .toast-icon {
+    font-size: 1.5rem;
+}
+
+#newRequestToast .toast-title {
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+}
+
+#newRequestToast .toast-msg {
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

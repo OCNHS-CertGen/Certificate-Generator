@@ -4,7 +4,7 @@ require_once 'config/database.php';
 
 // Redirect if already logged in
 if (is_logged_in()) {
-    header("Location: index.php");
+    header("Location: dashboard.php");
     exit();
 }
 
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Update last login
                 $conn->query("UPDATE users SET last_login = NOW() WHERE id = " . $user['id']);
 
-                header("Location: index.php");
+                header("Location: dashboard.php");
                 exit();
             } else {
                 $error = "Invalid password.";
@@ -144,16 +144,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .logo-circle {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 1.5rem;
+            width: 120px;
+            height: 120px;
+            background: transparent;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-circle:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
         }
 
         h1 {
@@ -256,7 +269,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="login-card">
         <div class="logo-section">
-            <div class="logo-circle">📑</div>
+            <div class="logo-circle">
+                <img src="assets/img/OCNHS LOGO.png" alt="OCNHS Logo">
+            </div>
             <h1>Welcome</h1>
             <p class="subtitle">Please enter your credentials.</p>
         </div>
@@ -279,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Sign In</button>
         </form>
 
-        <p class="footer-text">&copy; <?php echo date('Y'); ?> CertGen Management System</p>
+        <p class="footer-text">&copy; <?php echo date('Y'); ?> OCNHS Certificate Management System</p>
     </div>
 </body>
 
